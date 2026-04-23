@@ -31,22 +31,45 @@ This project follows **Onion Architecture** pattern:
 
 ### 1. Clone the repo
 
+```bash
 git clone https://github.com/Mohammed-Maher7/E-commerce-API.git
+```
+
+```bash
 cd E-commerce-API
+```
 
 ### 2. Setup User Secrets
 
+```bash
 cd E-commerce.API
+```
+
+```bash
 dotnet user-secrets init
+```
+
+```bash
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "YOUR_CONNECTION_STRING"
+```
+
+```bash
 dotnet user-secrets set "JWT:SecretKey" "YOUR_SECRET_KEY"
+```
+
+```bash
 dotnet user-secrets set "Stripe:SecretKey" "YOUR_STRIPE_KEY"
+```
+
+```bash
 dotnet user-secrets set "Stripe:PublishableKey" "YOUR_STRIPE_KEY"
+```
 
 ### 3. Run
 
+```bash
 dotnet run
-
+```
 ---
 
 ## 👤 Author
