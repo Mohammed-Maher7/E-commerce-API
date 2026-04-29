@@ -1,11 +1,14 @@
 using E_commerce.Repository.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Writers;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace E_commerce.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +43,25 @@ namespace E_commerce.API
             app.MapControllers();
             #endregion
 
+            //Update Database
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var _dbContext = services.GetRequiredService<StoreContext>();
 
+            var loggerFactory= services.GetRequiredService<ILoggerFactory>();
+
+            try
+            {
+                await _dbContext.Database.MigrateAsync();       //Update DataBase
+                await StoreCotextSeed.SeedAsync(_dbContext);    //Data Seeding
+                
+            }
+            catch (Exception ex)
+            {
+                var logger = loggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "Error while update Database (Applying Migrations)");
+            }
+         
             app.Run();
         }
     }

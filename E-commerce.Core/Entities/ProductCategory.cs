@@ -8,6 +8,6 @@ namespace E_commerce.Core.Entities
 {
     public class ProductCategory :BaseEntity
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }

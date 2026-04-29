@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace E_commerce.Repository.Data.Migrations
+namespace E_commerce.Repository.Data.Migations
 {
     public partial class ProductModule : Migration
     {
@@ -27,7 +27,7 @@ namespace E_commerce.Repository.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
