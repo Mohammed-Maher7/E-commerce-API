@@ -1,4 +1,7 @@
+using E_commerce.Core.Entities;
+using E_commerce.Core.Interfaces;
 using E_commerce.Repository.Data;
+using E_commerce.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Writers;
 using System.Linq.Expressions;
@@ -24,6 +27,9 @@ namespace E_commerce.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
             });
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+             
             #endregion
 
             var app = builder.Build();
