@@ -12,33 +12,27 @@ namespace E_commerce.API.Controllers
         {
             _storeContext = storeContext;
         }
-        [HttpGet("notfound")] //Get : api/Errors/NotFound
+        [HttpGet("notfound")] //Get : api/Errors/notfound
         public ActionResult GetNotFound() 
         {
             var product = _storeContext.products.Find(100);
             return product != null ? Ok(product) : NotFound();
         }
 
-        [HttpGet("badrequest")] //Get : api/Errors/BadRequest
+        [HttpGet("badrequest")] //Get : api/Errors/badrequest
         public ActionResult GetBadRequest() 
         {
             return BadRequest();
         }
 
-        [HttpGet("badrequest/{id}")] //Get : api/Errors/five
+        [HttpGet("badrequest/{id}")] //Get : api/Errors/badrequest/five
         public ActionResult GetBadRequestValidationError(int id) 
         {
             return Ok();
         }
 
-        //[HttpGet("{id}")] //Get :/api/Errors/1
-        //public ActionResult ValidationError(int id) 
-        //{
-        //    return Ok();
-        //}
 
-
-        [HttpGet("servererror")] //Get :/api/Errors/ServerError
+        [HttpGet("servererror")] //Get :/api/Errors/serverError
         public ActionResult GetServerError()
         {
             var product = _storeContext.products.Find(100);

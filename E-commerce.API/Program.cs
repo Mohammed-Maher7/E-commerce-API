@@ -1,3 +1,4 @@
+using E_commerce.API.Helpers;
 using E_commerce.Core.Entities;
 using E_commerce.Core.Interfaces;
 using E_commerce.Repository.Data;
@@ -29,6 +30,8 @@ namespace E_commerce.API
             });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfile()));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
              
             #endregion
 
