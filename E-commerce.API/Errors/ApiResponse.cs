@@ -6,7 +6,7 @@ namespace E_commerce.API.Errors
         public int StatusCode {  get; set; }
         public string? Message { get; set; }
 
-        public ApiResponse(int statusCode, string? message) 
+        public ApiResponse(int statusCode, string? message = null) 
         {
             StatusCode = statusCode;
             Message = message ?? GetDefaultErrorMessageForStatusCode(statusCode);
@@ -18,7 +18,7 @@ namespace E_commerce.API.Errors
             {
                 400 => "bad request",
                 401 => "unauthorized",
-                404 => "not found",
+                404 => "resource not found",
                 500 => "server error",
                 _ => null
             };

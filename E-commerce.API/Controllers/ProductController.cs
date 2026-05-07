@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using E_commerce.API.Dtos;
+using E_commerce.API.Errors;
 using E_commerce.Core.Entities;
 using E_commerce.Core.Interfaces;
 using E_commerce.Core.Specifications.Specs;
@@ -26,7 +27,7 @@ namespace E_commerce.API.Controllers
             var product = await _productRepo.GetByIdWithSpecsAsync(id, specs);
             if (product == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
             else
             {
@@ -43,7 +44,7 @@ namespace E_commerce.API.Controllers
 
             if (products == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
             else
             {
