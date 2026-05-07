@@ -1,9 +1,12 @@
+using E_commerce.API.Errors;
 using E_commerce.API.Helpers;
 using E_commerce.Core.Entities;
 using E_commerce.Core.Interfaces;
 using E_commerce.Repository.Data;
 using E_commerce.Repository.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Writers;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -32,8 +35,24 @@ namespace E_commerce.API
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             //builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfile()));
             builder.Services.AddAutoMapper(typeof(MappingProfile));
-             
+
             #endregion
+
+            builder.Services.Configure<ApiBehaviorOptions>((options) =>
+            {
+                options.InvalidModelStateResponseFactory= (actionContext) =>
+                {
+                    var errors = actionContext.ModelState.Where(p => p.Value.Errors.Count() > 0)
+                                                            .SelectMany(p => p.Value.Errors)
+                                                            .Select(p => p.ErrorMessage)
+                                                            .ToList();
+                    
+                    ApiValidationErrorResponse errorResponse = new ApiValidationErrorResponse() { Errors= errors };
+                    return new BadRequestObjectResult(errorResponse);
+                };
+               
+
+            });
 
             var app = builder.Build();
             #region Configure Pipeline
